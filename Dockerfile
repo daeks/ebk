@@ -10,7 +10,7 @@ RUN apt-get update -qq >/dev/null 2>&1 \
  && chmod 440 /etc/sudoers.d/elasticsearch
 
 RUN mkdir -p /usr/share/elasticsearch/data \
- && mkdor -p /usr/share/filebeat/data \
+ && mkdir -p /usr/share/filebeat/data \
  && mkdir -p /usr/share/docker/data \
  && chown -R elasticsearch /usr/share/elasticsearch/data \
  && chown -R elasticsearch /usr/share/filebeat/data \

@@ -16,7 +16,7 @@ RUN mkdir -p /usr/share/elasticsearch/data \
  && chown -R elasticsearch /usr/share/filebeat \
  && chown -R elasticsearch /usr/share/docker/data \
  && chmod -R +w /usr/share/elasticsearch \
- && chmod -R +w /usr/share/filebeat \
+ && chmod -R +w /usr/share/filebeat
 
 USER elasticsearch
 WORKDIR /home/elasticsearch
@@ -27,6 +27,6 @@ RUN wget -q -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsea
  
 COPY filebeat.yml filebeat-${EK_VERSION}-linux-x86_64/filebeat.yml
 
-CMD elasticsearch-${EK_VERSION}/bin/elasticsearch -Epath.data=/usr/share/elasticsearch/data -Ehttp.host=0.0.0.0 --quiet & kibana-${EK_VERSION}-linux-x86_64/bin/kibana --allow-root --host 0.0.0.0 -Q & filebeat-${EK_VERSION}-linux-x86_64/filebeat -path.config filebeat-${EK_VERSION}-linux-x86_64 -path.home /usr/share/filebeat
+CMD elasticsearch-${EK_VERSION}/bin/elasticsearch -Epath.data=/usr/share/elasticsearch/data -Ehttp.host=127.0.0.1 --quiet & kibana-${EK_VERSION}-linux-x86_64/bin/kibana --allow-root --host 0.0.0.0 -Q & filebeat-${EK_VERSION}-linux-x86_64/filebeat -path.config filebeat-${EK_VERSION}-linux-x86_64 -path.home /usr/share/filebeat
 
-EXPOSE 9200 5601
+EXPOSE 5601

@@ -20,7 +20,7 @@ filebeat.config.modules:
 
 setup.template.settings:
   index.number_of_shards: 3
-  
+
 output.elasticsearch:
   hosts: ["127.0.0.1:9200"]
   template:
@@ -28,6 +28,11 @@ output.elasticsearch:
     path: "fields.yml"
     overwrite: false
   protocol: "http"
+  username: "my_login"
+  password: "my_password"
 
 logging.to_files: true
 logging.to_syslog: false
+
+xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch:

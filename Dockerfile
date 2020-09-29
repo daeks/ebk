@@ -14,7 +14,8 @@ RUN apt-get update -qq >/dev/null 2>&1 \
  && apt-get install wget sudo -qqy >/dev/null 2>&1 \
  && useradd -m -u 1000 -s /bin/bash ${USER_NAME} \
  && echo ${USER_NAME} ALL=NOPASSWD: ALL >/etc/sudoers.d/${USER_NAME} \
- && chmod 440 /etc/sudoers.d/${USER_NAME}
+ && chmod 440 /etc/sudoers.d/${USER_NAME} \
+ && usermod -aG sudo ${USER_NAME}
 
 RUN mkdir -p ${ES_HOME}/data \
  && mkdir -p ${FB_HOME}/data \
@@ -36,6 +37,6 @@ COPY filebeat.yml ${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64/filebeat.yml
 
 CMD ${USER_HOME}/elasticsearch-${EK_VERSION}/bin/elasticsearch -Epath.data=${ES_HOME}/data -Ehttp.host=127.0.0.1 --quiet &\
  ${USER_HOME}/kibana-${EK_VERSION}-linux-x86_64/bin/kibana --elasticsearch http://127.0.0.1:9200 --host 0.0.0.0 --silent &\
- sudo "${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64/filebeat -path.config ${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64 -path.home ${FB_HOME}"
+ sudo ${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64/filebeat -path.config ${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64 -path.home ${FB_HOME}
 
 EXPOSE 5601

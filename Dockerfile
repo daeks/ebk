@@ -11,7 +11,7 @@ ENV FB_HOME=/usr/share/filebeat
 ENV ES_HOME=/usr/share/elasticsearch
 
 RUN apt-get update -qq >/dev/null 2>&1 \
- && apt-get install wget sudo -qqy >/dev/null 2>&1 \
+ && apt-get install procps nano wget sudo -qqy >/dev/null 2>&1 \
  && useradd -m -u 1000 -s /bin/bash ${USER_NAME} \
  && echo ${USER_NAME} ALL=NOPASSWD: ALL >/etc/sudoers.d/${USER_NAME} \
  && chmod 440 /etc/sudoers.d/${USER_NAME} \

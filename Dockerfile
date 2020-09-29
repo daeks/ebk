@@ -25,7 +25,7 @@ RUN wget -q -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsea
  && wget -q -O - https://artifacts.elastic.co/downloads/kibana/kibana-oss-${EK_VERSION}-linux-x86_64.tar.gz | tar -zx \
  && wget -q -O - https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${EK_VERSION}-linux-x86_64.tar.gz | tar -zx
  
-COPY filebeat.yml /usr/share/filebeat/filebeat.yml
+COPY filebeat.yml filebeat-${EK_VERSION}-linux-x86_64/filebeat.yml
 
 CMD elasticsearch-${EK_VERSION}/bin/elasticsearch -Epath.data=/usr/share/elasticsearch/data -Ehttp.host=0.0.0.0 --quiet & kibana-${EK_VERSION}-linux-x86_64/bin/kibana --allow-root --host 0.0.0.0 -Q & filebeat-${EK_VERSION}-linux-x86_64/filebeat -path.config filebeat-${EK_VERSION}-linux-x86_64 -path.home /usr/share/filebeat
 

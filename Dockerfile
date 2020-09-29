@@ -9,12 +9,17 @@ RUN apt-get update -qq >/dev/null 2>&1 \
  && echo elasticsearch ALL=NOPASSWD: ALL >/etc/sudoers.d/elasticsearch \
  && chmod 440 /etc/sudoers.d/elasticsearch
 
+RUN mkdir -p /usr/share/elasticsearch/data \
+ && mkdor -p /usr/share/filebeat/data \
+ && mkdir -p /usr/share/docker/data \
+ && chown -R elasticsearch /usr/share/elasticsearch/data \
+ && chown -R elasticsearch /usr/share/filebeat/data \
+ && chown -R elasticsearch /usr/share/docker/data \
+
 USER elasticsearch
 WORKDIR /home/elasticsearch
 
 RUN wget -q -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-${EK_VERSION}-no-jdk-linux-x86_64.tar.gz | tar -zx \
- && mkdir -p elasticsearch-${EK_VERSION}/data \
- && mkdir -p /usr/share/docker \
  && wget -q -O - https://artifacts.elastic.co/downloads/kibana/kibana-oss-${EK_VERSION}-linux-x86_64.tar.gz | tar -zx \
  && wget -q -O - https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${EK_VERSION}-linux-x86_64.tar.gz | tar -zx
  

@@ -12,8 +12,8 @@ RUN apt-get update -qq >/dev/null 2>&1 \
 RUN mkdir -p /usr/share/elasticsearch/data \
  && mkdir -p /usr/share/filebeat/data \
  && mkdir -p /usr/share/docker/data \
- && chown -R elasticsearch /usr/share/elasticsearch/data \
- && chown -R elasticsearch /usr/share/filebeat/data \
+ && chown -R elasticsearch /usr/share/elasticsearch \
+ && chown -R elasticsearch /usr/share/filebeat \
  && chown -R elasticsearch /usr/share/docker/data
 
 USER elasticsearch

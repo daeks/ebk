@@ -14,7 +14,7 @@ RUN mkdir -p /usr/share/elasticsearch/data \
  && mkdir -p /usr/share/docker/data \
  && chown -R elasticsearch /usr/share/elasticsearch/data \
  && chown -R elasticsearch /usr/share/filebeat/data \
- && chown -R elasticsearch /usr/share/docker/data \
+ && chown -R elasticsearch /usr/share/docker/data
 
 USER elasticsearch
 WORKDIR /home/elasticsearch

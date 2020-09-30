@@ -9,7 +9,7 @@ ENV USER_HOME=/home/${USER_NAME}
 ENV FB_HOME=/usr/share/filebeat
 ENV ES_HOME=/usr/share/elasticsearch
 
-ENV ES_JAVA_OPTS=-Xms1g -Xmx1g
+ENV ES_JAVA_OPTS="-Xms1g -Xmx1g"
 ENV discovery.type=single-node
 
 RUN apt-get update -qq >/dev/null 2>&1 \
@@ -35,8 +35,8 @@ RUN wget -q -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsea
  
 COPY filebeat.yml ${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64/filebeat.yml
 
-CMD ${USER_HOME}/elasticsearch-${EK_VERSION}/bin/elasticsearch -Epath.data=${ES_HOME}/data &\
- ${USER_HOME}/kibana-${EK_VERSION}-linux-x86_64/bin/kibana --elasticsearch http://localhost:9200 --host 0.0.0.0 &\
- sudo ${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64/filebeat -path.config ${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64 -path.home ${FB_HOME}
+CMD ${USER_HOME}/elasticsearch-${EK_VERSION}/bin/elasticsearch -Epath.data=${ES_HOME}/data --quiet &\
+ ${USER_HOME}/kibana-${EK_VERSION}-linux-x86_64/bin/kibana --elasticsearch http://localhost:9200 --host 0.0.0.0 --silent &\
+ sudo ${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64/filebeat -path.data ${FB_HOME}/data
 
 EXPOSE 5601

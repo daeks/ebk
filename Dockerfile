@@ -31,7 +31,7 @@ WORKDIR ${USER_HOME}
 
 RUN wget -q -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-${EK_VERSION}-no-jdk-linux-x86_64.tar.gz | tar -zx \
  && wget -q -O - https://artifacts.elastic.co/downloads/kibana/kibana-oss-${EK_VERSION}-linux-x86_64.tar.gz | tar -zx \
- && wget -q -O - https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${EK_VERSION}-linux-x86_64.tar.gz | tar -zx
+ && wget -q -O - https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-oss-${EK_VERSION}-linux-x86_64.tar.gz | tar -zx
  
 COPY filebeat.yml ${USER_HOME}/filebeat-${EK_VERSION}-linux-x86_64/filebeat.yml
 

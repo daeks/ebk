@@ -6,9 +6,11 @@ ENV EK_VERSION=7.9.0
 ENV USER_NAME=elasticsearch
 ENV USER_HOME=/home/${USER_NAME}
 
-ENV DOCKER_HOME=/usr/share/docker
 ENV FB_HOME=/usr/share/filebeat
 ENV ES_HOME=/usr/share/elasticsearch
+
+ENV ES_JAVA_OPTS=-Xms1g -Xmx1g
+ENV discovery.type=single-node
 
 RUN apt-get update -qq >/dev/null 2>&1 \
  && apt-get install procps net-tools nano wget sudo -qqy >/dev/null 2>&1 \
@@ -19,10 +21,8 @@ RUN apt-get update -qq >/dev/null 2>&1 \
 
 RUN mkdir -p ${ES_HOME}/data \
  && mkdir -p ${FB_HOME}/data \
- && mkdir -p ${DOCKER_HOME}/data \
  && chown -R ${USER_NAME} ${ES_HOME} \
  && chown -R ${USER_NAME} ${FB_HOME} \
- && chown -R ${USER_NAME} ${DOCKER_HOME}/data \
  && chmod -R +w ${ES_HOME} \
  && chmod -R +w ${FB_HOME}
 
